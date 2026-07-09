@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tripfolio Pro</title>
+  
+  <!-- 
+    Scripts are moved to the end of the <body> for faster page load 
+    and to prevent library loading errors.
+  -->
+
+  <!-- Configuration for Tailwind & Dark Mode -->
+  <script>
+    tailwind.config = {
+      darkMode: 'class', // Enable 'class' strategy for dark mode
+      theme: {
+        extend: {
+          backgroundColor:{
+             inter: ['Inter', 'White']
+          },
+          fontFamily: {
+            inter: ['Inter', 'sans-serif'],
+          },
+        },
+      },
+    }
+  </script>
+
+  <!-- Custom Styles for App Layout, Components, and Animations -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="h-full bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100">
+
+  <!-- App structure: Login/Register screens are shown first, then the main app layout -->
+
+  <!-- 
+    ======================================
+    Auth Pages (Login, Register, OTP)
+    ======================================
+  -->
+  
+  <!-- Login Page -->
+  <section id="login-page" class="app-page active">
+    <div class="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-500 to-indigo-600 dark:from-gray-900 dark:to-black p-4">
+      <div class="w-full max-w-md bg-white dark:bg-gray-800 rounded-2xl shadow-2xl p-8">
+        <div class="flex flex-col items-center mb-6">
+          <div class="bg-blue-600 p-3 rounded-full text-white shadow-lg">
+            <i data-lucide="plane" style="width: 40px; height: 40px;"></i>
+          </div>
+          <h1 class="text-3xl font-bold text-gray-800 dark:text-white mt-4">Tripfolio Pro</h1>
+          <p class="text-gray-500 dark:text-gray-400">Your smart trip manager</p>
+        </div>
+        
+        <form id="login-form" class="space-y-4">
+          <div class="relative">
+            <label for="login-email" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Email</label>
+            <input id="login-email" type="email" placeholder="you@example.com" required class="w-full mt-1 pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+            <span class="absolute left-3 top-10 text-gray-400"><i data-lucide="mail" class="icon-md"></i></span>
+          </div>
+          <div class="relative">
+            <label for="login-password" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Password</label>
+            <input id="login-password" type="password" placeholder="••••••••" required class="w-full mt-1 pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+            <span class="absolute left-3 top-10 text-gray-400"><i data-lucide="lock" class="icon-md"></i></span>
+          </div>
+          <div class="text-right text-sm">
+            <a href="#" class="font-medium text-blue-600 hover:text-blue-500 dark:text-blue-400">Forgot password?</a>
+          </div>
+          <button type="submit" class="w-full py-3 px-4 rounded-lg font-semibold text-white bg-blue-600 hover:bg-blue-700 shadow-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-all duration-200 flex items-center justify-center">
+            <i data-lucide="log-in" class="icon-md mr-2"></i> Sign In
+          </button>
+          <div class="text-center text-sm text-gray-500 dark:text-gray-400">
+            Don't have an account? 
+            <button type="button" id="go-to-register" class="font-medium text-blue-600 hover:text-blue-500 dark:text-blue-400">Register here</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- Register Page -->
+  <section id="register-page" class="app-page">
+    <div class="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-500 to-indigo-600 dark:from-gray-900 dark:to-black p-4">
+      <div class="w-full max-w-md bg-white dark:bg-gray-800 rounded-2xl shadow-2xl p-8">
+        <div class="flex flex-col items-center mb-6">
+          <h1 class="text-3xl font-bold text-gray-800 dark:text-white">Create Account</h1>
+          <p class="text-gray-500 dark:text-gray-400">Get started with Tripfolio Pro</p>
+        </div>
+        
+        <form id="register-form" class="space-y-4">
+          <div class="relative">
+            <label for="register-name" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Full Name</label>
+            <input id="register-name" type="text" placeholder="John Doe" required class="w-full mt-1 pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+            <span class="absolute left-3 top-10 text-gray-400"><i data-lucide="user" class="icon-md"></i></span>
+          </div>
+          <div class="relative">
+            <label for="register-email" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Email</label>
+            <input id="register-email" type="email" placeholder="you@example.com" required class="w-full mt-1 pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+            <span class="absolute left-3 top-10 text-gray-400"><i data-lucide="mail" class="icon-md"></i></span>
+          </div>
+          <div class="relative">
+            <label for="register-password" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Password</label>
+            <input id="register-password" type="password" placeholder="Create a strong password" required class="w-full mt-1 pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+            <span class="absolute left-3 top-10 text-gray-400"><i data-lucide="lock" class="icon-md"></i></span>
+          </div>
+          <button type="submit" class="w-full py-3 px-4 rounded-lg font-semibold text-white bg-blue-600 hover:bg-blue-700 shadow-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-all duration-200 flex items-center justify-center">
+             <i data-lucide="user-plus" class="icon-md mr-2"></i> Register
+          </button>
+          <div class="text-center text-sm text-gray-500 dark:text-gray-400">
+            Already have an account? 
+            <button type="button" id="go-to-login" class="font-medium text-blue-600 hover:text-blue-500 dark:text-blue-400">Sign in here</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- OTP Page -->
+  <section id="otp-page" class="app-page">
+    <div class="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-500 to-indigo-600 dark:from-gray-900 dark:to-black p-4">
+      <div class="w-full max-w-md bg-white dark:bg-gray-800 rounded-2xl shadow-2xl p-8">
+        <div class="flex flex-col items-center mb-6">
+          <h1 class="text-3xl font-bold text-gray-800 dark:text-white">Verify Your Email</h1>
+          <p class="text-gray-500 dark:text-gray-400 text-center mt-2">
+            An OTP has been sent to <strong id="otp-email-display"></strong>.
+            <br>(Hint: Use <strong>123456</strong> for this demo)
+          </p>
+        </div>
+        
+        <form id="otp-form" class="space-y-4">
+          <div class="relative">
+            <label for="otp-code" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Enter 6-Digit OTP</label>
+            <input id="otp-code" type="tel" placeholder="123456" required maxlength="6" class="w-full mt-1 pl-10 pr-4 py-3 tracking-[0.3em] text-lg font-semibold text-center border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+            <span class="absolute left-3 top-10 text-gray-400"><i data-lucide="message-square" class="icon-md"></i></span>
+          </div>
+          <button type="submit" class="w-full py-3 px-4 rounded-lg font-semibold text-white bg-green-600 hover:bg-green-700 shadow-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition-all duration-200 flex items-center justify-center">
+             <i data-lucide="check-circle" class="icon-md mr-2"></i> Verify & Sign In
+          </button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- 
+    ======================================
+    Main Application Layout
+    ======================================
+  -->
+  <div id="main-app" class="app-layout" style="display: none;"> <!-- Hidden until authenticated -->
+    
+    <!-- Mobile Sidebar Overlay -->
+    <div id="sidebar-overlay" onclick="App.toggleSidebar()"></div>
+
+    <!-- Sidebar / Menubar -->
+    <nav id="sidebar" class="bg-white dark:bg-gray-800 shadow-2xl flex flex-col h-full overflow-hidden">
+      <!-- Logo -->
+      <div class="p-4 border-b border-gray-200 dark:border-gray-700 flex items-center h-[73px]">
+        <div class="bg-blue-600 p-2 rounded-lg text-white">
+          <i data-lucide="plane" class="icon-lg"></i>
+        </div>
+        <h1 class="text-2xl font-bold text-gray-800 dark:text-white ml-3 sidebar-logo-text">Tripfolio</h1>
+      </div>
+      
+      <!-- Navigation -->
+     <div class="flex-1 p-4 space-y-2 overflow-y-auto">
+        <a href="#" class="nav-link" data-page="dashboard-page">
+          <i data-lucide="layout-dashboard" class="icon-md mr-3"></i> <span>Dashboard</span>
+        </a>
+        <a href="#" class="nav-link" data-page="all-trips-page">
+          <i data-lucide="briefcase" class="icon-md mr-3"></i> <span>My Trips</span>
+        </a>
+        <a href="#" class="nav-link" data-page="all-memories-page">
+          <i data-lucide="image" class="icon-md mr-3"></i> <span>All Memories</span>
+        </a>
+        <a href="#" class="nav-link" data-page="tour-guide-page">
+          <i data-lucide="user-check" class="icon-md mr-3"></i> <span>Buy Tour Guide</span>
+        </a>
+        <a href="#" class="nav-link" data-page="explore-page">
+          <i data-lucide="globe" class="icon-md mr-3"></i> <span>Explore</span>
+        </a>
+        
+        <a href="#" class="nav-link" data-page="subscription-page">
+          <i data-lucide="star" class="icon-md mr-3"></i> <span>Subscription</span>
+        </a>
+        <a href="#" class="nav-link" data-page="settings-page">
+          <i data-lucide="settings" class="icon-md mr-3"></i> <span>Settings</span>
+        </a>
+      </div>
+      
+      <!-- Collapse Button -->
+      <div class="p-4 border-t border-gray-200 dark:border-gray-700" id="sidebar-collapse-container">
+        <button id="sidebar-collapse-btn" class="nav-link w-full">
+          <i data-lucide="chevrons-left" class="icon-md mr-3 transition-transform duration-300"></i>
+          <span>Collapse</span>
+        </button>
+      </div>
+      
+      <!-- Logout -->
+      <div class="p-4 border-t border-gray-200 dark:border-gray-700">
+        <a href="#" id="logout-button" class="nav-link !text-red-600 dark:!text-red-400 hover:!bg-red-50 dark:hover:!bg-red-900/50">
+          <i data-lucide="log-out" class="icon-md mr-3"></i> <span>Logout</span>
+        </a>
+      </div>
+    </nav>
+
+    <!-- Main Content Area -->
+    <div id="main-content" class="bg-gray-50 dark:bg-gray-900">
+      
+      <!-- Mobile Header -->
+      <header class="md:hidden sticky top-0 bg-white dark:bg-gray-800 shadow-md z-20 flex items-center justify-between p-4 h-[73px]">
+        <button id="menu-toggle-button" class="text-gray-700 dark:text-gray-300">
+          <i data-lucide="menu" class="icon-lg"></i>
+        </button>
+        <h1 id="mobile-page-title" class="text-xl font-bold text-gray-800 dark:text-white">Dashboard</h1>
+        <div class="w-6"></div> <!-- Spacer -->
+      </header>
+      
+      <!-- 
+        ======================================
+        App Pages
+        ======================================
+      -->
+
+      <!-- Dashboard Page -->
+      <section id="dashboard-page" class="app-page p-4 md:p-8">
+        <h1 class="text-3xl font-bold text-gray-800 dark:text-white mb-6 hidden md:block">Dashboard</h1>
+        
+        <!-- Stats Grid -->
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-8">
+          <div class="tilt-card bg-blue-500 text-white p-6 rounded-2xl shadow-lg flex items-center space-x-4">
+            <div class="p-3 bg-white/30 rounded-full"><i data-lucide="plane" class="icon-lg"></i></div>
+            <div>
+              <p class="text-3xl font-bold" id="stat-total-trips">0</p>
+              <p class="text-sm font-medium opacity-90">Total Trips</p>
+            </div>
+          </div>
+          <div class="tilt-card bg-green-500 text-white p-6 rounded-2xl shadow-lg flex items-center space-x-4">
+            <div class="p-3 bg-white/30 rounded-full"><i data-lucide="check-square" class="icon-lg"></i></div>
+            <div>
+              <p class="text-3xl font-bold" id="stat-total-tasks">0/0</p>
+              <p class="text-sm font-medium opacity-90">Tasks Completed</p>
+            </div>
+          </div>
+          <div class="tilt-card bg-indigo-500 text-white p-6 rounded-2xl shadow-lg flex items-center space-x-4">
+            <div class="p-3 bg-white/30 rounded-full"><i data-lucide="footprints" class="icon-lg"></i></div>
+            <div>
+              <p class="text-3xl font-bold" id="stat-total-carbon">0 <span class="text-lg">kg</span></p>
+              <p class="text-sm font-medium opacity-90">Total Carbon</p>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Dashboard Content -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          <!-- Upcoming Trips -->
+          <div class="bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-lg">
+            <h2 class="text-2xl font-bold text-gray-800 dark:text-white mb-4">Upcoming Trips</h2>
+            <div id="dashboard-upcoming-trips" class="space-y-4">
+              <!-- Trips will be dynamically inserted here -->
+            </div>
+          </div>
+          
+          <!-- Recent Memories -->
+          <div class="bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-lg">
+            <h2 class="text-2xl font-bold text-gray-800 dark:text-white mb-4">Recent Memories</h2>
+            <div id="dashboard-recent-memories" class="grid grid-cols-3 gap-4">
+              <!-- Memories will be dynamically inserted here -->
+            </div>
+          </div>
+        </div>
+      </section>
+      
+      <!-- All Trips Page -->
+      <section id="all-trips-page" class="app-page p-4 md:p-8">
+        <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-6">
+          <h1 class="text-3xl font-bold text-gray-800 dark:text-white hidden md:block">My Trips</h1>
+          <!-- Filters -->
+          <div class="flex space-x-2 bg-gray-200 dark:bg-gray-700 p-1 rounded-lg mt-4 md:mt-0">
+            <button class="trip-filter-btn active" data-filter="all">All</button>
+            <button class="trip-filter-btn" data-filter="short">Short Trips</button>
+            <button class="trip-filter-btn" data-filter="long">Long Trips</button>
+          </div>
+          <button id="add-trip-btn" class="mt-4 md:mt-0 w-full md:w-auto py-3 px-5 rounded-lg font-semibold text-white bg-blue-600 hover:bg-blue-700 shadow-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-all duration-200 flex items-center justify-center">
+            <i data-lucide="plus" class="icon-md mr-2"></i> Add New Trip
+          </button>
+        </div>
+        
+        <!-- Trip List -->
+        <div id="trip-list-container" class="space-y-4">
+          <!-- Trips will be dynamically inserted here -->
+        </div>
+      </section>
+      
+      <!-- NEW: All Memories Page -->
+      <section id="all-memories-page" class="app-page p-4 md:p-8">
+        <h1 class="text-3xl font-bold text-gray-800 dark:text-white mb-6 hidden md:block">All Memories</h1>
+        <div id="all-memories-container" class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4 mt-6">
+          <!-- All memories will be dynamically inserted here -->
+        </div>
+      </section>
+
+      <!-- Trip Details Page -->
+      <section id="trip-details-page" class="app-page p-4 md:p-8">
+        <!-- Header -->
+        <div class="flex items-center mb-6">
+          <button id="back-to-trips-btn" class="text-blue-600 dark:text-blue-400 p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700">
+            <i data-lucide="chevron-left" class="icon-lg"></i>
+          </button>
+          <h1 id="trip-details-title" class="text-3xl font-bold text-gray-800 dark:text-white ml-2">Trip Title</h1>
+        </div>
+        
+        <!-- Tabs -->
+        <div class="mb-6 border-b border-gray-200 dark:border-gray-700">
+          <nav class="flex -mb-px space-x-6" aria-label="Tabs">
+            <button class="trip-tab-btn active" data-tab="tasks">
+              <i data-lucide="list-todo" class="icon-md mr-2"></i> Tasks
+            </button>
+            <button class="trip-tab-btn" data-tab="carbon">
+              <i data-lucide="footprints" class="icon-md mr-2"></i> Carbon
+            </button>
+            <button class="trip-tab-btn" data-tab="scheduler">
+              <i data-lucide="calendar-clock" class="icon-md mr-2"></i> Scheduler
+            </button>
+            <button class="trip-tab-btn" data-tab="memories">
+              <i data-lucide="book-image" class="icon-md mr-2"></i> Memories
+            </button>
+          </nav>
+        </div>
+        
+        <!-- Tab Content -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          
+          <!-- Left Column (Tasks) -->
+          <div id="tab-content-tasks" class="trip-tab-content active lg:col-span-2">
+            <div class="bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-lg">
+              <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-4">
+                <h2 class="text-2xl font-bold text-gray-800 dark:text-white">Task Tracker</h2>
+                <div class="flex flex-col items-center mt-4 md:mt-0">
+                  <svg class="progress-ring w-24 h-24" viewBox="0 0 120 120">
+                    <circle class="progress-ring__circle-bg" stroke="#E5E7EB" stroke-width="10" fill="transparent" r="52" cx="60" cy="60" />
+                    <circle id="task-progress-circle" class="progress-ring__circle" stroke="#3B82F6" stroke-width="10" fill="transparent" r="52" cx="60" cy="60" stroke-linecap="round" />
+                  </svg>
+                  <span id="task-progress-text" class="text-lg font-semibold text-blue-600 dark:text-blue-400 -mt-16">0%</span>
+                </div>
+              </div>
+              <form id="add-task-form" class="flex space-x-2 mb-4">
+                <input id="add-task-input" type="text" placeholder="Add new task (e.g., Book hotel)" class="flex-1 px-4 py-2 border border-gray-300 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500" style = "margin-top: 30px;">
+                <button type="submit" class="py-2 px-4 rounded-lg font-semibold text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500" style = "margin-top: 30px;">Add</button>
+              </form>
+              <div id="task-list" class="space-y-3 max-h-96 overflow-y-auto">
+                <!-- Tasks will be dynamically inserted here -->
+              </div>
+            </div>
+          </div>
+          
+          <!-- Right Column (Carbon, Scheduler, Memories) -->
+          <div class="lg:col-span-1 space-y-8">
+            <!-- Carbon Content -->
+            <div id="tab-content-carbon" class="trip-tab-content">
+              <div class="bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-lg">
+                <h2 class="text-2xl font-bold text-gray-800 dark:text-white mb-4">Carbon Footprint</h2>
+                <div class="text-center mb-4">
+                  <p class="text-gray-600 dark:text-gray-300">Total for this trip:</p>
+                  <p id="carbon-total-text" class="text-4xl font-bold text-green-700 dark:text-green-400">0.0 <span class="text-lg">kg CO₂</span></p>
+                </div>
+                <form id="add-carbon-form" class="space-y-3">
+                  <input id="add-carbon-activity" type="text" placeholder="Activity (e.g., Flight)" class="w-full px-4 py-2 border border-gray-300 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+                  <input id="add-carbon-co2" type="number" step="0.1" placeholder="CO₂ in kg" class="w-full px-4 py-2 border border-gray-300 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+                  <button type="submit" class="w-full py-2 px-4 rounded-lg font-semibold text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 flex items-center justify-center">
+                    <i data-lucide="plus" class="icon-sm mr-1"></i> Add Entry
+                  </button>
+                </form>
+                <div id="carbon-list" class="mt-4 space-y-2 max-h-40 overflow-y-auto">
+                  <!-- Carbon entries will be dynamically inserted here -->
+                </div>
+              </div>
+            </div>
+
+            <!-- Scheduler Content -->
+            <div id="tab-content-scheduler" class="trip-tab-content">
+              <div class="bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-lg">
+                <h2 class="text-2xl font-bold text-gray-800 dark:text-white mb-4">Scheduler</h2>
+                <form id="add-reminder-form" class="space-y-3">
+                  <input id="add-reminder-text" type="text" placeholder="Reminder text" class="w-full px-4 py-2 border border-gray-300 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+                  <input id="add-reminder-datetime" type="datetime-local" class="w-full px-4 py-2 border border-gray-300 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:[color-scheme:dark]">
+                  <button type="submit" class="w-full py-2 px-4 rounded-lg font-semibold text-white bg-purple-600 hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 flex items-center justify-center">
+                    <i data-lucide="bell" class="icon-sm mr-1"></i> Set Alarm
+                  </button>
+                </form>
+                <div id="reminder-list" class="mt-4 space-y-2 max-h-40 overflow-y-auto">
+                  <!-- Reminders will be dynamically inserted here -->
+                </div>
+              </div>
+            </div>
+
+            <!-- Memories Content -->
+            <div id="tab-content-memories" class="trip-tab-content">
+              <div class="bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-lg">
+                <h2 class="text-2xl font-bold text-gray-800 dark:text-white mb-4">Memories</h2>
+                <input type="file" id="add-memory-input" class="hidden" accept="image/*,video/*" multiple>
+                <button id="add-memory-btn" class="w-full py-2 px-4 rounded-lg font-semibold text-white bg-red-500 hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 flex items-center justify-center">
+                  <i data-lucide="camera" class="icon-sm mr-1"></i> Upload Media
+                </button>
+                <p class="text-xs text-gray-500 dark:text-gray-400 text-center mt-2">
+                  (Uploads are simulated for this demo)
+                </p>
+                <div id="memory-list" class="mt-4 grid grid-cols-3 gap-2 max-h-60 overflow-y-auto">
+                  <!-- Memories will be dynamically inserted here -->
+                </div>
+              </div>
+            </div>
+
+            <!-- NEW: Danger Zone -->
+            <div class="bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-lg border border-red-500/30">
+              <h2 class="text-2xl font-bold text-red-600 dark:text-red-400 mb-4">Danger Zone</h2>
+              <p class="text-sm text-gray-600 dark:text-gray-400 mb-4">This action cannot be undone. This will permanently delete the trip and all its associated data.</p>
+              <button id="delete-trip-btn" class="w-full py-2 px-4 rounded-lg font-semibold text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 flex items-center justify-center">
+                <i data-lucide="trash-2" class="icon-sm mr-2"></i> Delete This Trip
+              </button>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      <!-- NEW: Tour Guide Page -->
+      <section id="tour-guide-page" class="app-page p-4 md:p-8">
+        <h1 class="text-3xl font-bold text-gray-800 dark:text-white mb-6 hidden md:block">Buy a Tour Guide</h1>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          
+          <!-- Guide Card 1 -->
+          <div class="tilt-card bg-white dark:bg-gray-800 rounded-2xl shadow-lg overflow-hidden">
+            <img src="https://placehold.co/600x400/3B82F6/white?text=City+Walking+Tour" alt="Walking Tour" class="w-full h-48 object-cover">
+            <div class="p-6">
+              <h3 class="text-2xl font-bold text-gray-900 dark:text-white">City Walking Tour</h3>
+              <p class="text-gray-600 dark:text-gray-400 mt-2">Explore the city's hidden gems on foot with a local expert. Perfect for photographers and history buffs.</p>
+              <div class="text-3xl font-bold text-blue-600 dark:text-blue-400 mt-4">Rs.4000 <span class="text-sm font-normal">/person</span></div>
+              <button class="w-full mt-4 py-2 px-4 rounded-lg font-semibold text-white bg-blue-600 hover:bg-blue-700 focus:outline-none">Book Now</button>
+            </div>
+          </div>
+          
+          <!-- Guide Card 2 -->
+          <div class="tilt-card bg-white dark:bg-gray-800 rounded-2xl shadow-lg overflow-hidden">
+            <img src="https://placehold.co/600x400/10B981/white?text=Foodie+Adventure" alt="Food Tour" class="w-full h-48 object-cover">
+            <div class="p-6">
+              <h3 class="text-2xl font-bold text-gray-900 dark:text-white">Foodie Adventure</h3>
+              <p class="text-gray-600 dark:text-gray-400 mt-2">Taste your way through the city! A culinary journey to the best local markets, street food stalls, and restaurants.</p>
+              <div class="text-3xl font-bold text-green-600 dark:text-green-400 mt-4">Rs.7200<span class="text-sm font-normal">/person</span></div>
+              <button class="w-full mt-4 py-2 px-4 rounded-lg font-semibold text-white bg-green-600 hover:bg-green-700 focus:outline-none">Book Now</button>
+            </div>
+          </div>
+          
+          <!-- Guide Card 3 -->
+          <div class="tilt-card bg-white dark:bg-gray-800 rounded-2xl shadow-lg overflow-hidden">
+            <img src="https://placehold.co/600x400/8B5CF6/white?text=Private+Driver" alt="Private Tour" class="w-full h-48 object-cover">
+            <div class="p-6">
+              <h3 class="text-2xl font-bold text-gray-900 dark:text-white">Private Driver & Guide</h3>
+              <p class="text-gray-600 dark:text-gray-400 mt-2">The ultimate luxury. A personal car, driver, and guide to customize your day exactly as you wish.</p>
+              <div class="text-3xl font-bold text-purple-600 dark:text-purple-400 mt-4">Rs.24000 <span class="text-sm font-normal">/group</span></div>
+              <button class="w-full mt-4 py-2 px-4 rounded-lg font-semibold text-white bg-purple-600 hover:bg-purple-700 focus:outline-none">Book Now</button>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- Explore Page -->
+      <section id="explore-page" class="app-page p-4 md:p-8">
+        <h1 class="text-3xl font-bold text-gray-800 dark:text-white mb-6 hidden md:block">Explore Destinations</h1>
+        <div class="relative mb-6">
+          <input id="explore-search-input" type="text" placeholder="Search all destinations..." class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+          <span class="absolute left-3 top-3.5 text-gray-400"><i data-lucide="search" class="icon-md"></i></span>
+        </div>
+        
+        <div id="explore-lists-container" class="space-y-8">
+          <!-- Location lists will be dynamically inserted here -->
+        </div>
+      </section>
+<!--Subscription page-->
+      <section id="subscription-page" class="app-page p-4 md:p-8">
+        <h1 class="text-3xl font-bold text-gray-800 dark:text-white mb-6 hidden md:block">Subscription Plans</h1>
+        
+        <div class="max-w-4xl mx-auto bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-8">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+            
+            <div class="border dark:border-gray-700 p-6 rounded-lg">
+              <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-3">Free Plan</h3>
+              <p class="text-gray-500 dark:text-gray-400 mb-4">Basic features to get you started.</p>
+              <ul class="space-y-2 text-gray-600 dark:text-gray-300">
+                <li class="flex items-center"><i data-lucide="check" class="icon-sm text-green-500 mr-2"></i> Unlimited Trips</li>
+                <li class="flex items-center"><i data-lucide="check" class="icon-sm text-green-500 mr-2"></i> Task Management</li>
+                <li class="flex items-center"><i data-lucide="check" class="icon-sm text-green-500 mr-2"></i> 10 Photos</li>
+                <li class="flex items-center"><i data-lucide="check" class="icon-sm text-green-500 mr-2"></i> 2 Videos</li>
+              </ul>
+              <button class="mt-6 w-full py-2 px-4 rounded-lg font-semibold text-gray-700 dark:text-gray-200 bg-gray-100 dark:bg-gray-700 cursor-not-allowed">
+                Currently Active
+              </button>
+            </div>
+            
+            <div class="bg-blue-600 text-white p-8 rounded-lg shadow-2xl scale-105">
+              <h3 class="text-3xl font-bold mb-3">Tripfolio Pro</h3>
+              <p class="opacity-90 mb-4">Unlock all features and save unlimited memories.</p>
+              <p class="text-4xl font-bold mb-4">
+                4000 rs <span class="text-lg opacity-80">/ year</span>
+              </p>
+              <ul class="space-y-2">
+                <li class="flex items-center"><i data-lucide="check" class="icon-sm mr-2"></i> Unlimited Trips</li>
+                <li class="flex items-center"><i data-lucide="check" class="icon-sm mr-2"></i> Unlimited Photos</li>
+                <li class="flex items-center"><i data-lucide="check" class="icon-sm mr-2"></i> Unlimited Videos</li>
+                <li class="flex items-center"><i data-lucide="check" class="icon-sm mr-2"></i> AI Itinerary Scheduler</li>
+                <li class="flex items-center"><i data-lucide="check" class="icon-sm mr-2"></i> Priority Support</li>
+              </ul>
+              <button class="mt-6 w-full py-3 px-5 rounded-lg font-semibold text-blue-600 bg-white hover:bg-gray-100">
+                Upgrade to Pro
+              </button>
+            </div>
+            
+          </div>
+        </div>
+      </section>
+      <!-- Settings Page -->
+      <section id="settings-page" class="app-page p-4 md:p-8">
+        <h1 class="text-3xl font-bold text-gray-800 dark:text-white mb-6 hidden md:block">Settings</h1>
+        <div class="max-w-2xl mx-auto">
+          <div class="bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-lg">
+            <h2 class="text-2xl font-bold text-gray-800 dark:text-white mb-6">App Settings</h2>
+            <div class="space-y-4">
+              
+              <!-- Profile -->
+              <div class="flex justify-between items-center p-4 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 cursor-pointer">
+                <div class="flex items-center">
+                  <i data-lucide="user" class="icon-md mr-3 text-blue-500"></i>
+                  <span id="settings-profile-name" class="text-gray-700 dark:text-gray-300 font-medium">Edit Profile</span>
+                </div>
+                <i data-lucide="chevron-right" class="icon-md text-gray-400"></i>
+              </div>
+              
+              <!-- Dark Mode -->
+              <div class="flex justify-between items-center p-4">
+                <div class="flex items-center">
+                  <i data-lucide="moon" class="icon-md mr-3 text-purple-500"></i>
+                  <span class="text-gray-700 dark:text-gray-300 font-medium">Dark Mode</span>
+                </div>
+                <label class="relative inline-flex items-center cursor-pointer">
+                  <input type="checkbox" id="dark-mode-toggle" class="sr-only peer">
+                  <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
+                </label>
+              </div>
+
+              <!-- Notifications -->
+              <div class="flex justify-between items-center p-4">
+                <div class="flex items-center">
+                  <i data-lucide="bell" class="icon-md mr-3 text-green-500"></i>
+                  <span class="text-gray-700 dark:text-gray-300 font-medium">Push Notifications</span>
+                </div>
+                <label class="relative inline-flex items-center cursor-pointer">
+                  <input type="checkbox" class="sr-only peer" checked>
+                  <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
+                </label>
+              </div>
+              
+              <!-- Clear Data -->
+              <div class="pt-4">
+                <button id="clear-data-btn" class="w-full py-3 px-4 rounded-lg font-semibold text-white bg-red-600 hover:bg-red-700 shadow-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 transition-all duration-200 flex items-center justify-center">
+                  <i data-lucide="trash-2" class="icon-md mr-2"></i> Clear My Account Data
+                </button>
+                <p class="text-xs text-gray-500 dark:text-gray-400 text-center mt-2">
+                  (Resets your account to default)
+                </p>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </div> <!-- End #main-content -->
+  </div> <!-- End #main-app -->
+
+  <!-- 
+    ======================================
+    Global Components (Modals, Toast, etc.)
+    ======================================
+  -->
+
+  <!-- Modal Container -->
+  <div id="modal-container" class="modal-overlay" onclick="App.hideModal()">
+    <div class="modal-content bg-white dark:bg-gray-800 rounded-2xl shadow-2xl w-full max-w-lg max-h-[90vh] overflow-y-auto" onclick="event.stopPropagation()">
+      <div class="flex justify-between items-center p-4 border-b dark:border-gray-700">
+        <h2 id="modal-title" class="text-xl font-semibold dark:text-white">Modal Title</h2>
+        <button onclick="App.hideModal()" class="text-gray-400 hover:text-gray-600 dark:hover:text-gray-200">
+          <i data-lucide="x" class="icon-lg"></i>
+        </button>
+      </div>
+      <div id="modal-body" class="p-6">
+        <!-- Modal content goes here -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification -->
+  <div id="toast-notification">
+    <div id="toast-content" class="flex items-center w-full max-w-xs p-4 text-gray-500 bg-white rounded-lg shadow-2xl dark:text-gray-400 dark:bg-gray-800">
+      <div id="toast-icon" class="inline-flex items-center justify-center flex-shrink-0 w-8 h-8 text-green-500 bg-green-100 rounded-lg dark:bg-green-800 dark:text-green-200">
+        <i data-lucide="check" class="icon-md"></i>
+      </div>
+      <div id="toast-message" class="ml-3 text-sm font-normal">Message goes here.</div>
+      <button id="toast-close" type="button" class="ml-auto -mx-1.5 -my-1.5 bg-white text-gray-400 hover:text-gray-900 rounded-lg focus:ring-2 focus:ring-gray-300 p-1.5 hover:bg-gray-100 inline-flex h-8 w-8 dark:text-gray-500 dark:hover:text-white dark:bg-gray-800 dark:hover:bg-gray-700">
+        <i data-lucide="x" class="icon-md"></i>
+      </button>
+    </div>
+  </div>
+
+  <!-- Loading Overlay -->
+  <div id="loading-overlay">
+    <div class="spinner"></div>
+  </div>
+
+
+  <!-- 
+    ======================================
+    JavaScript Libraries (Moved to end of body for proper loading)
+    ======================================
+  -->
+  <!-- 1. Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- 2. Lucide Icons (Vanilla JS version) -->
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+  
+  <!-- 3. Vanilla Tilt.js -->
+  <script type="text/javascript" src="https://unpkg.com/vanilla-tilt@1.7.2/dist/vanilla-tilt.min.js"></script>
+
+
+  <!-- 
+    ======================================
+    JavaScript Application Logic
+    ======================================
+  -->
+  <script type="text/javascript" src = "app.js">
+    
+    // Use an IIFE (Immediately Invoked Function Expression) to avoid polluting the global scope
+    
+  </script>
+
+</body>
+</html>
