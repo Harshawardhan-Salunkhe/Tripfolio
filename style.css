@@ -1,0 +1,300 @@
+ body {
+      font-family: 'Inter', sans-serif;
+    }
+
+    /* 1. App Layout */
+    .app-layout {
+      display: flex;
+      height: 100vh;
+      overflow: hidden;
+      transition: all 0.3s ease;
+    }
+    
+    /* Sidebar */
+    #sidebar {
+      width: 256px;
+      flex-shrink: 0;
+      transition: width 0.3s ease;
+      transform: translateX(0);
+      z-index: 40;
+    }
+    #sidebar .sidebar-logo-text {
+      transition: opacity 0.3s ease, transform 0.3s ease;
+      opacity: 1;
+      transform: translateX(0);
+    }
+    #sidebar .nav-link span {
+      transition: opacity 0.3s ease, transform 0.3s ease;
+      opacity: 1;
+      transform: translateX(0);
+    }
+    #sidebar .nav-link {
+      display: flex;
+      align-items: center;
+    }
+    
+    /* --- NEW: Collapsed Sidebar Styles --- */
+    .app-layout.sidebar-collapsed #sidebar {
+      width: 80px;
+    }
+    .app-layout.sidebar-collapsed #sidebar .sidebar-logo-text {
+      opacity: 0;
+      transform: translateX(-10px);
+      pointer-events: none;
+    }
+    .app-layout.sidebar-collapsed #sidebar .nav-link {
+      justify-content: center;
+    }
+    .app-layout.sidebar-collapsed #sidebar .nav-link i {
+      margin-right: 0;
+    }
+    .app-layout.sidebar-collapsed #sidebar .nav-link span {
+      opacity: 0;
+      transform: translateX(-10px);
+      pointer-events: none;
+      position: absolute; /* Hide from layout */
+    }
+    .app-layout.sidebar-collapsed #sidebar #sidebar-collapse-btn i {
+      transform: rotate(180deg);
+    }
+    /* --- End Collapsed Styles --- */
+
+
+    /* Main Content */
+    #main-content {
+      flex-grow: 1;
+      overflow-y: auto;
+      height: 100vh;
+    }
+
+    /* Mobile Sidebar */
+    @media (max-width: 768px) {
+      /* Reset desktop collapse styles for mobile */
+      .app-layout.sidebar-collapsed #sidebar,
+      #sidebar {
+        position: fixed;
+        width: 256px; /* Full width on mobile */
+        inset: 0;
+        left: 0;
+        transform: translateX(-100%);
+        height: 100%;
+      }
+      #sidebar.open {
+        transform: translateX(0);
+      }
+      .app-layout.sidebar-collapsed #sidebar .sidebar-logo-text,
+      .app-layout.sidebar-collapsed #sidebar .nav-link span {
+        opacity: 1;
+        transform: translateX(0);
+        pointer-events: auto;
+        position: static;
+      }
+      .app-layout.sidebar-collapsed #sidebar .nav-link {
+        justify-content: flex-start;
+      }
+      .app-layout.sidebar-collapsed #sidebar .nav-link i {
+        margin-right: 0.75rem; /* 12px */
+      }
+      #sidebar-collapse-btn {
+        display: none; /* Hide collapse button on mobile */
+      }
+      
+      #sidebar-overlay {
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 30;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+        pointer-events: none;
+      }
+      #sidebar-overlay.open {
+        opacity: 1;
+        pointer-events: auto;
+      }
+    }
+
+    /* 2. Page Sections (for SPA-like navigation) */
+    .app-page {
+      display: none; /* Hidden by default */
+    }
+    .app-page.active {
+      display: block; /* Shown when active */
+    }
+
+    /* 3. Circular Progress SVG */
+    .progress-ring__circle {
+      transition: stroke-dashoffset 0.5s ease;
+      transform: rotate(-90deg);
+      transform-origin: 50% 50%;
+      margin-bottom: 1000px;
+    }
+    
+    /* 4. Custom Modal */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.6);
+      z-index: 999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      pointer-events: none;
+    }
+    .modal-overlay.open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .modal-content {
+      transform: scale(0.95);
+      transition: transform 0.3s ease;
+    }
+    .modal-overlay.open .modal-content {
+      transform: scale(1);
+    }
+    
+    /* 5. Toast Notification */
+    #toast-notification {
+      position: fixed;
+      bottom: -100px; /* Start off-screen */
+      right: 1.5rem;
+      z-index: 1000;
+      transition: all 0.5s ease;
+    }
+    #toast-notification.show {
+      bottom: 1.5rem; /* Slide in */
+    }
+
+    /* 6. Loading Overlay */
+    #loading-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(255, 255, 255, 0.7);
+      z-index: 9998;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+    #loading-overlay.open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .dark  {
+      background: rgba(0, 0, 0, 0.7);
+    }
+    .spinner {
+      width: 48px;
+      height: 48px;
+      border: 5px solid #CBD5E0; /* light gray */
+      border-bottom-color: #3B82F6; /* blue */
+      border-radius: 50%;
+      display: inline-block;
+      box-sizing: border-box;
+      animation: rotation 1s linear infinite;
+    }
+    .dark .spinner {
+      border-color: #4B5563;
+      border-bottom-color: #60A5FA;
+    }
+    @keyframes rotation {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    
+    /* 7. Lucide Icon Sizing */
+    .icon-xs { width: 14px; height: 14px; }
+    .icon-sm { width: 16px; height: 16px; }
+    .icon-md { width: 20px; height: 20px; }
+    .icon-lg { width: 24px; height: 24px; }
+    
+    /* 8. Professional UI Tweaks */
+    .nav-link {
+      padding: 10px 16px;
+      border-radius: 8px;
+      font: medium;
+      color: #4B5563; /* dark:text-gray-300 */
+      transition: background-color 0.2s ease, color 0.2s ease;
+    }
+    .nav-link:hover {
+      background-color: #F3F4F6; /* dark:bg-gray-700 */
+      color: #1F2937; /* dark:text-white */
+    }
+    .dark .nav-link {
+      color: #D1D5DB;
+    }
+    .dark .nav-link:hover {
+      background-color: #374151;
+      color: #FFFFFF;
+    }
+    .nav-link.active {
+      background-color: #3B82F6; /* blue-600 */
+      color: #FFFFFF;
+    }
+    .dark .nav-link.active {
+      background-color: #3B82F6;
+      color: #FFFFFF;
+    }
+    .nav-link.active i {
+      color: #FFFFFF !important; /* Force active icon color */
+    }
+    .nav-link:hover i {
+      color: #1F2937;
+    }
+    .dark .nav-link:hover i {
+      color: #FFFFFF;
+    }
+    
+    /* Trip Filter Buttons */
+    .trip-filter-btn {
+      padding: 6px 16px;
+      border-radius: 6px;
+      font: medium;
+      color: #4B5563;
+      transition: background-color 0.2s ease, color 0.2s ease;
+    }
+    .dark .trip-filter-btn {
+      color: #D1D5DB;
+    }
+    .trip-filter-btn.active {
+      background-color: #FFFFFF;
+      color: #3B82F6;
+      box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+    }
+    .dark .trip-filter-btn.active {
+      background-color: #4B5563;
+      color: #FFFFFF;
+    }
+    
+    /* Trip Tab Buttons */
+    .trip-tab-btn {
+      display: flex;
+      align-items: center;
+      padding: 0 4px 12px 4px;
+      font: medium;
+      color: #6B7280;
+      border-bottom: 2px solid transparent;
+      transition: color 0.2s ease, border-color 0.2s ease;
+    }
+    .dark .trip-tab-btn {
+      color: #9CA3AF;
+    }
+    .trip-tab-btn:hover {
+      color: #1F2937;
+    }
+    .dark .trip-tab-btn:hover {
+      color: #F9FAFB;
+    }
+    .trip-tab-btn.active {
+      color: #3B82F6;
+      border-color: #3B82F6;
+    }
+    .dark .trip-tab-btn.active {
+      color: #60A5FA;
+      border-color: #60A5FA;
+    }
