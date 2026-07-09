@@ -43,7 +43,7 @@ This project is intended as a **reference prototype** showcasing layout, styling
 ## 🚀 Getting Started
 
 1. Clone or download this repository.
-2. Open `index.html` in your browser (ensure it links to `style.css`).
+2. Open `tripfolio.html` in your browser (ensure it links to `style.css`).
 3. Explore the sidebar, modal, toast, and other UI components.
 
 ---
