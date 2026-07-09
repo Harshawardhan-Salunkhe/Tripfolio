@@ -1,2 +1,3 @@
 # Tripfolio
-A trrip managing website
+A trip managing website
+
